@@ -1,11 +1,11 @@
 {
   "name": "alarm_fault_view",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
+    "dev": "vite --mode dev",
     "serve": "vite preview",
     "build": "vite build",
-    "dev": "vite",
     "preview": "vite preview"
   },
   "dependencies": {
