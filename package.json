@@ -16,6 +16,7 @@
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
+    "@types/node": "^18.0.0",
     "@types/webfontloader": "^1.0.0",
     "@vitejs/plugin-vue": "^2.3.3",
     "typescript": "^4.5.4",
