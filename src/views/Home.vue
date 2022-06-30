@@ -1,64 +1,79 @@
 <template>
-  <v-container>
-    <v-navigation-drawer
-      v-model="drawer"
-      :rail="rail"
-      permanent
-      location="right"
-      @click="rail = false"
-    >
-      <v-list-item
-        prepend-avatar="./assets/images/autronica_logo.png"
-        title="John Leider"
+  <v-app>
+    <v-row>
+      <v-container>
+        <v-btn class="ml-10" height="40" width="200" @click="openClose()">
+          Close
+          <v-icon>mdi-file-document-edit-outline</v-icon>
+        </v-btn></v-container
       >
-        <template v-slot:append>
-          <v-btn
-            variant="text"
-            icon="mdi-chevron-left"
-            @click.stop="rail = !rail"
-          ></v-btn>
-        </template>
-      </v-list-item>
 
-      <v-divider></v-divider>
-
-      <v-list density="compact" nav>
-        <v-list-item
-          prepend-icon="mdi-home-city"
-          title="Home"
-          value="home"
-        ></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-account"
-          title="My Account"
-          value="account"
-        ></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-account-group-outline"
-          title="Users"
-          value="users"
-        ></v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-main style="height: 100vh">
-      <v-img :src="require('./src/assets/boat.jpg')" />
-    </v-main>
-  </v-container>
+      <v-expand-x-transition>
+        <side-card v-if="sidebarOpen" />
+      </v-expand-x-transition>
+      <v-expand-x-transition>
+        <small-side-bar v-if="smallSideBarOpen" />
+      </v-expand-x-transition>
+    </v-row>
+  </v-app>
 </template>
 
 <script lang="ts">
-export default {
-  data() {
-    return {
-      drawer: true,
+import SideCard from '../components/SideCard.vue';
+// import SideBar from '../components/SideBar.vue';
+import SmallSideBar from '../components/SmallSideBar.vue';
 
-      items: [
-        { title: 'Home', icon: 'mdi-home-city' },
-        { title: 'My Account', icon: 'mdi-account' },
-        { title: 'Users', icon: 'mdi-account-group-outline' },
-      ],
-      rail: true,
+export default {
+  components: {
+    // SideBar,
+    SideCard,
+    SmallSideBar,
+  },
+  data(): {
+    sidebarOpen: boolean;
+    smallSideBarOpen: boolean;
+  } {
+    return {
+      sidebarOpen: true,
+      smallSideBarOpen: false,
     };
+  },
+
+  methods: {
+    openClose() {
+      if (this.sidebarOpen) {
+        this.sidebarOpen = false;
+        setTimeout(() => (this.smallSideBarOpen = true), 250);
+      } else {
+        this.smallSideBarOpen = false;
+        setTimeout(() => (this.sidebarOpen = true), 50);
+      }
+    },
   },
 };
 </script>
+
+<style scoped>
+.fade-enter-from {
+  opacity: 0;
+}
+.fade-enter-to {
+  opacity: 1;
+}
+
+.fade-enter-active {
+  transition: all 2s ease;
+}
+
+.fade-leave-from {
+  opacity: 1;
+}
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-leave-active {
+  transition: all 2s ease;
+}
+</style>
+>
